@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gửi Vũ Tiểu Muội 💌</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle, #ffd6e0, #ff9a9e);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* blur nền */
+body.opened::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(6px) brightness(0.9);
+    z-index: 1;
+}
+
+/* PHONG BÌ */
+.envelope {
+    width: 520px;
+    height: 340px;
+    background: #ff6b81;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    z-index: 5;
+    overflow: hidden;
+}
+
+/* NẮP */
+.flap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ff8fa3;
+    clip-path: polygon(0 0, 100% 0, 50% 65%);
+    transform-origin: top;
+    transition: 0.8s;
+    z-index: 6;
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+/* THIỆP */
+.letter {
+    position: fixed;
+    width: 440px;
+    height: 270px;
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-sizing: border-box;
+    text-align: center;
+    color: #ff6b81;
+
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+
+    transition: all 1s cubic-bezier(0.2, 1.5, 0.5, 1);
+    z-index: 10;
+}
+
+.letter.show {
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    box-shadow: 0 0 50px rgba(255,255,255,0.9);
+}
+
+/* TEXT cute */
+.letter h2 {
+    margin-bottom: 10px;
+}
+
+.letter p {
+    line-height: 1.6;
+}
+
+/* IG trong thiệp */
+.ig-link {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.ig-link p {
+    margin: 0 0 5px;
+    font-size: 14px;
+}
+
+.ig-link a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    background: #ff6b81;
+    padding: 6px 12px;
+    border-radius: 15px;
+}
+
+.ig-icon {
+    margin-right: 5px;
+}
+
+/* ẢNH */
+.photo {
+    position: fixed;
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 15px;
+    opacity: 0;
+    z-index: 9;
+
+    transition: all 1s cubic-bezier(0.2, 1.5, 0.5, 1);
+}
+
+.p1 {
+    top: 110%;
+    left: -50px;
+}
+
+.p2 {
+    top: 110%;
+    right: -50px;
+}
+
+.p1.show {
+    top: 20%;
+    left: 20%;
+    opacity: 1;
+    transform: rotate(-10deg);
+}
+
+.p2.show {
+    top: 20%;
+    right: 20%;
+    opacity: 1;
+    transform: rotate(10deg);
+}
+
+/* PARTICLE */
+.particle {
+    position: fixed;
+    font-size: 20px;
+    animation: floatUp linear forwards;
+    z-index: 2;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-120vh);
+        opacity: 0;
+    }
+}
+
+/* HOA */
+.flower {
+    position: fixed;
+    font-size: 22px;
+    pointer-events: none;
+    z-index: 3;
+    animation: flowerFloat 3s ease-out forwards;
+}
+
+@keyframes flowerFloat {
+    0% {
+        transform: translate(0, 0) scale(0.5);
+        opacity: 0;
+    }
+    20% { opacity: 1; }
+    100% {
+        transform: translate(var(--x), -120vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="envelope" onclick="openEnvelope()" id="env">
+    <div class="flap"></div>
+</div>
+
+<!-- THIỆP -->
+<div class="letter" id="letter">
+    <h2>💖 klinhdepgainhathmt 💖</h2>
+    <p>
+        🌸 Cậu luôn xinh tươi như những đoá hoa nha! ✨ <br>
+        💫 Chúc mỗi ngày đều thật vui vẻ và dễ thương 💕
+    </p>
+
+    <!-- IG -->
+    <div class="ig-link" id="igLink">
+        <p>👉 Cho tớ follow IG cậu cho tròn 100 nhé 😄</p>
+        <a href="https://www.instagram.com/_nmh14_/" target="_blank">
+            <span class="ig-icon">📷</span>
+            @_nmh14_
+        </a>
+    </div>
+</div>
+
+<!-- ẢNH -->
+<img src="img1.png" class="photo p1">
+<img src="img2.jpg" class="photo p2">
+
+<script>
+function openEnvelope() {
+    const env = document.getElementById("env");
+
+    if (env.classList.contains("open")) return;
+
+    env.classList.add("open");
+    document.body.classList.add("opened");
+
+    setTimeout(() => {
+        document.getElementById("letter").classList.add("show");
+    }, 300);
+
+    setTimeout(() => {
+        document.querySelector(".p1").classList.add("show");
+        document.querySelector(".p2").classList.add("show");
+    }, 600);
+
+    // IG hiện trễ
+    setTimeout(() => {
+        document.getElementById("igLink").style.opacity = 1;
+    }, 1800);
+
+    // particle
+    for (let i = 0; i < 40; i++) {
+        const p = document.createElement("div");
+        p.classList.add("particle");
+        p.innerHTML = ["💖","✨","🌸"][Math.floor(Math.random()*3)];
+
+        p.style.left = Math.random()*100 + "vw";
+        p.style.bottom = "0px";
+        p.style.animationDuration = (2 + Math.random()*2) + "s";
+
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 4000);
+    }
+
+    // hoa
+    for (let i = 0; i < 30; i++) {
+        const f = document.createElement("div");
+        f.classList.add("flower");
+
+        const flowers = ["🌸","🌺","🌼","💮"];
+        f.innerHTML = flowers[Math.floor(Math.random()*flowers.length)];
+
+        f.style.left = "50%";
+        f.style.bottom = "40%";
+
+        const randomX = (Math.random() - 0.5) * 400;
+        f.style.setProperty("--x", randomX + "px");
+
+        f.style.animationDuration = (2 + Math.random()*2) + "s";
+
+        document.body.appendChild(f);
+        setTimeout(() => f.remove(), 4000);
+    }
+}
+</script>
+
+</body>
+</html>
